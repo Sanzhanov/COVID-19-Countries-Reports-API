@@ -20,6 +20,10 @@ describe('Cases', function () {
             expect(response.status).to.eq(200)
         })
 
+        it('Response has headers', function () {
+            expect(response.headers).not.to.be.undefined
+        })
+
         it('Response body contains country code from request', function () {
             for (let entry of response.body) {
                 expect(entry.Country_code).to.eq(code)
@@ -42,8 +46,16 @@ describe('Cases', function () {
             expect(response.status).to.eq(404)
         })
 
+        it('Response has headers', function () {
+            expect(response.headers).not.to.be.undefined
+        })
+
         it('Response body contains an error message', function () {
             expect(response.body.message).to.eq(`Country code ${code.toLowerCase()} not found!`)
+        })
+
+        it('Error message contains invalid country code', function () {
+            expect(response.body.message).to.include(code.toLowerCase())
         })
     })
 })
